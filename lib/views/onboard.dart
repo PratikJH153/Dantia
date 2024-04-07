@@ -2,6 +2,7 @@ import 'package:dantia/theme/theme.dart';
 import 'package:dantia/views/sign_in_page.dart';
 import 'package:dantia/widgets/sign_up_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class OnboardPage extends StatefulWidget {
   const OnboardPage({Key? key}) : super(key: key);
@@ -42,7 +43,7 @@ class _OnboardPageState extends State<OnboardPage> {
               height: 20,
             ),
             Text(
-              "We need to protect our planet",
+              "Invest in our planet's future!",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
@@ -54,7 +55,7 @@ class _OnboardPageState extends State<OnboardPage> {
               height: 10,
             ),
             Text(
-              "Join us with the only platform to help to grow with the betterment of the environment",
+              "We help founders building climate ventures get funded and launch faster into market.",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
@@ -65,45 +66,48 @@ class _OnboardPageState extends State<OnboardPage> {
               height: 60,
             ),
             SignUpButton(
-              onTap: () {},
+              onTap: navigateToUserDetailsPage,
             ),
             const SizedBox(
               height: 15,
             ),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              margin: const EdgeInsets.symmetric(horizontal: 12),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(18),
+            GestureDetector(
+              onTap: navigateToUserDetailsPage,
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                margin: const EdgeInsets.symmetric(horizontal: 12),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(18),
+                  ),
                 ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    height: 45,
-                    width: 45,
-                    child: Icon(
-                      Icons.wallet,
-                      size: 32,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      height: 45,
+                      width: 45,
+                      child: Icon(
+                        Icons.wallet,
+                        size: 32,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  const Text(
-                    "Sign in with Phantom Wallet",
-                    style: TextStyle(
-                      fontFamily: "Poppins",
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
+                    const SizedBox(
+                      width: 5,
                     ),
-                  ),
-                ],
+                    const Text(
+                      "Sign in with Phantom Wallet",
+                      style: TextStyle(
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

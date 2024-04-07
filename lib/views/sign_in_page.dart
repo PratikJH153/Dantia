@@ -1,3 +1,4 @@
+import 'package:dantia/views/home.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -6,61 +7,60 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final _fullNameController = TextEditingController();
   final _usernameController = TextEditingController();
+
+  @override
+  void dispose() {
+    _fullNameController.dispose();
+    _usernameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(''),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            // Handle back button press
-          },
-        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        margin: const EdgeInsets.symmetric(horizontal: 12),
-        decoration: const BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.all(
-            Radius.circular(18),
+      floatingActionButton: GestureDetector(
+        onTap: () => Navigator.of(context)
+            .push(MaterialPageRoute(builder: (ctx) => HomePage())),
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          margin: const EdgeInsets.symmetric(
+            horizontal: 24,
+            vertical: 10,
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              height: 45,
-              width: 45,
-              decoration: const BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
+          decoration: const BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black45,
+                offset: Offset(0, 5),
+                blurRadius: 10,
+                spreadRadius: 0.1,
+              ),
+            ],
+            color: Color.fromARGB(255, 255, 171, 25),
+            borderRadius: BorderRadius.all(
+              Radius.circular(18),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Sign in",
+                style: TextStyle(
+                  fontFamily: "Poppins",
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
                 ),
               ),
-              child: Image.asset(
-                "assets/images/google.png",
-                fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            const Text(
-              "Sign in with Google",
-              style: TextStyle(
-                fontFamily: "Poppins",
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       body: Padding(
@@ -85,12 +85,38 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
             SizedBox(height: 30),
             TextField(
+              controller: _fullNameController,
+              decoration: InputDecoration(
+                labelText: 'Full name',
+                contentPadding: EdgeInsets.only(
+                  left: 15,
+                  right: 10,
+                  top: 20,
+                  bottom: 20,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(21),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            TextField(
               controller: _usernameController,
               decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(
+                  left: 15,
+                  right: 10,
+                  top: 20,
+                  bottom: 20,
+                ),
                 labelText: 'Username',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(
-                    Radius.circular(16),
+                    Radius.circular(21),
                   ),
                 ),
               ),
