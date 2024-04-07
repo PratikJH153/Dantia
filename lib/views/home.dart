@@ -1,5 +1,6 @@
 import 'package:dantia/views/dantia_page.dart';
 import 'package:dantia/views/profile_page.dart';
+import 'package:dantia/views/rewarded_tokens_page.dart';
 import 'package:dantia/views/startup_page.dart';
 import 'package:flutter/material.dart';
 
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
         index: _currentIndex,
         children: [
           DantiaPage(),
-          Container(),
+          RewardedTokensPage(),
           StartupListPage(),
           ProfileScreen(),
         ],
