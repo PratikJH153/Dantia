@@ -1,3 +1,4 @@
+import 'package:dantia/logic/solana_impl.dart';
 import 'package:dantia/views/wallet_page.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,10 @@ class _InvestPageState extends State<InvestPage> {
         child: ElevatedButton(
           onPressed: () {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (ctx) => WalletPage()),
+              MaterialPageRoute(
+                  builder: (ctx) => WalletPage(
+                        amount: investment.toInt(),
+                      )),
             );
           },
           style: ElevatedButton.styleFrom(

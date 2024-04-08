@@ -1,3 +1,4 @@
+import 'package:dantia/logic/solana_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -39,6 +40,20 @@ class _RewardedTokensPageState extends State<RewardedTokensPage> {
       'icon': Icons.recycling,
     },
   ];
+  final WalletProvider _provider = WalletProvider();
+
+  @override
+  void initState() {
+    _provider.initializeAdapter();
+    super.initState();
+  }
+
+  Future<void> redeem() async {
+    int totalTokens =
+        rewardedTokens.fold(0, (sum, token) => sum + (token['tokens'] as int));
+
+    await _provider.redeemTokens(totalTokens);
+  }
 
   @override
   Widget build(BuildContext context) {

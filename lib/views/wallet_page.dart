@@ -1,15 +1,30 @@
+import 'package:dantia/logic/solana_impl.dart';
 import 'package:dantia/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class WalletPage extends StatefulWidget {
-  const WalletPage({Key? key}) : super(key: key);
+  final int amount;
+  const WalletPage({required this.amount, Key? key}) : super(key: key);
 
   @override
   State<WalletPage> createState() => _WalletPageState();
 }
 
 class _WalletPageState extends State<WalletPage> {
+  final WalletProvider _provider = WalletProvider();
+
+  @override
+  void initState() {
+    _provider.initializeAdapter();
+    super.initState();
+  }
+
+  Future<void> invest() async {
+    await _provider.investTokens(
+        widget.amount, "42xMtd6mPMZKgtv7WgUV9hg51RsrxQ4hx9ioHLSSnjmc");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,64 +38,66 @@ class _WalletPageState extends State<WalletPage> {
         ),
         width: double.infinity,
         child: ElevatedButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Column(
-                    children: [
-                      Center(
-                        child: Image.asset(
-                          "assets/images/image.png",
-                          height: 80,
-                          width: 80,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text('Thanks for your investment'),
-                    ],
-                  ),
-                  content: Text(
-                      'Earn more tokens on Dantia and invest in others campaigns 🔥 🔥'),
-                  actions: [
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                builder: (ctx) => HomePage(),
-                              ),
-                              (route) => false);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 12,
-                            horizontal: 12,
+          onPressed: () async {
+            invest().then((val) {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Column(
+                      children: [
+                        Center(
+                          child: Image.asset(
+                            "assets/images/image.png",
+                            height: 80,
+                            width: 80,
                           ),
-                          backgroundColor: Colors.amber,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(12),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text('Thanks for your investment'),
+                      ],
+                    ),
+                    content: Text(
+                        'Earn more tokens on Dantia and invest in others campaigns 🔥 🔥'),
+                    actions: [
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (ctx) => HomePage(),
+                                ),
+                                (route) => false);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 12,
+                              horizontal: 12,
+                            ),
+                            backgroundColor: Colors.amber,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                            ),
+                          ),
+                          child: Text(
+                            "Invest Now",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
                         ),
-                        child: Text(
-                          "Invest Now",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
                       ),
-                    ),
-                  ],
-                );
-              },
-            );
+                    ],
+                  );
+                },
+              );
+            });
           },
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.symmetric(

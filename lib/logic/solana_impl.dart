@@ -10,12 +10,12 @@ class WalletProvider extends ChangeNotifier {
   late Connection _connection;
   int _tokenBalance = 0;
 
-  Future<void> _initializeAdapter() async {
+  Future<void> initializeAdapter() async {
     _adapter = SolanaWalletAdapter(
       AppIdentity(
         uri: Uri.https('example.com'),
         icon: Uri.parse('favicon.png'),
-        name: 'Example App',
+        name: 'Dantia',
       ),
       cluster: Cluster.devnet,
       hostAuthority: null,
@@ -23,23 +23,23 @@ class WalletProvider extends ChangeNotifier {
     _connection = Connection(Cluster.devnet);
   }
 
-  Future<void> _connectToPhantom() async {
+  Future<void> connectToPhantom() async {
     if (!_adapter.isAuthorized) {
       await _adapter.authorize(
         walletUriBase: _adapter.store.apps[0].walletUriBase,
       );
 
-      await _fetchTokenBalance();
+      await fetchTokenBalance();
     }
   }
 
-  Future<void> _disconnectFromPhantom() async {
+  Future<void> disconnectFromPhantom() async {
     if (_adapter.isAuthorized) {
       await _adapter.deauthorize();
     }
   }
 
-  Future<int?> _fetchTokenBalance() async {
+  Future<int?> fetchTokenBalance() async {
     if (_adapter.isAuthorized) {
       final Pubkey? wallet =
           Pubkey.tryFromBase64(_adapter.connectedAccount?.address);
@@ -51,7 +51,7 @@ class WalletProvider extends ChangeNotifier {
     return null;
   }
 
-  Future<void> _redeemTokens(int amount) async {
+  Future<void> redeemTokens(int amount) async {
     if (_adapter.isAuthorized) {
       final Pubkey? wallet =
           Pubkey.tryFromBase64(_adapter.connectedAccount?.address);
@@ -83,12 +83,16 @@ class WalletProvider extends ChangeNotifier {
           // Confirm the transaction
           await _connection
               .confirmTransaction(base58To64Decode(signatures.first!));
-        } catch (e) {}
+        } catch (e) {
+          print(e);
+        }
       }
+    } else {
+      print("NOT AUTHORIZED");
     }
   }
 
-  Future<void> _investTokens(int amount) async {
+  Future<void> investTokens(int amount, String address) async {
     if (_adapter.isAuthorized) {
       final Pubkey? wallet =
           Pubkey.tryFromBase64(_adapter.connectedAccount?.address);
@@ -103,7 +107,8 @@ class WalletProvider extends ChangeNotifier {
               SystemProgram.transfer(
                 fromPubkey: wallet,
                 toPubkey: Pubkey.fromBase58(
-                    'InvestmentAddress'), // Replace with the actual investment address
+                  address,
+                ), // Replace with the actual investment address
                 lamports: solToLamports(amount.toDouble()),
               ),
             ],
@@ -121,8 +126,13 @@ class WalletProvider extends ChangeNotifier {
           // Confirm the transaction
           await _connection
               .confirmTransaction(base58To64Decode(signatures.first!));
-        } catch (e) {}
+          print("DONE Transaction");
+        } catch (e) {
+          print(e);
+        }
       }
+    } else {
+      print("NOT AUTHORIZED");
     }
   }
 }
