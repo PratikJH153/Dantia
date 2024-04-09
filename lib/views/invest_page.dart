@@ -1,4 +1,3 @@
-import 'package:dantia/logic/solana_impl.dart';
 import 'package:dantia/views/wallet_page.dart';
 import 'package:flutter/material.dart';
 

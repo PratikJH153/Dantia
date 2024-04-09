@@ -44,7 +44,7 @@ class _RewardedTokensPageState extends State<RewardedTokensPage> {
 
   @override
   void initState() {
-    _provider.initializeAdapter();
+    _provider.initializeAdapter().then((value) => print("HELLO"));
     super.initState();
   }
 
@@ -86,9 +86,7 @@ class _RewardedTokensPageState extends State<RewardedTokensPage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    // Implement redemption functionality
-                  },
+                  onPressed: redeem,
                   child: Text('Redeem'),
                 ),
               ],

@@ -128,8 +128,8 @@ class _DantiaPageState extends State<DantiaPage> {
                     ),
                     Image.asset(
                       "assets/images/img_piggy_bank_1_82x112.png",
-                      height: 120,
-                      width: 120,
+                      height: 100,
+                      width: 100,
                       fit: BoxFit.cover,
                     )
                   ],
@@ -187,12 +187,12 @@ class _DantiaPageState extends State<DantiaPage> {
                             Text(
                               "Join us! To plant trees!",
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(top: 10),
+                              margin: EdgeInsets.only(top: 5),
                               width: 300,
                               child: Text(
                                 "We are all here to save the planet, and I hope together to make big changes to the development of our climate.",
@@ -204,7 +204,7 @@ class _DantiaPageState extends State<DantiaPage> {
                               ),
                             ),
                             const SizedBox(
-                              height: 20,
+                              height: 15,
                             ),
                             Row(
                               children: [
@@ -294,7 +294,7 @@ class _DantiaPageState extends State<DantiaPage> {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 10),
+                            margin: EdgeInsets.only(top: 5),
                             width: 300,
                             child: Text(
                               "A startup in Chicago, IL working on batteries",
@@ -306,7 +306,7 @@ class _DantiaPageState extends State<DantiaPage> {
                             ),
                           ),
                           const SizedBox(
-                            height: 20,
+                            height: 5,
                           ),
                           ElevatedButton(
                             onPressed: () {},

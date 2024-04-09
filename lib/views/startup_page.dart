@@ -27,7 +27,7 @@ class _StartupListPageState extends State<StartupListPage> {
       description:
           'CO2 Capture: Pioneering carbon capture technology to combat climate change and reduce greenhouse gas emissions for a cleaner and sustainable future.',
       logoUrl:
-          'https://netl.doe.gov/sites/default/files/inline-images/Carbon%20Capture%20Icon%20wo-shadow.png',
+          'https://cdn2.vectorstock.com/i/1000x1000/57/66/co2-absorption-logo-with-two-trees-and-text-vector-43855766.jpg',
     ),
     Startup(
       name: 'Recycle Now Inc.',

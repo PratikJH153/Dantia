@@ -24,13 +24,27 @@ class WalletProvider extends ChangeNotifier {
   }
 
   Future<void> connectToPhantom() async {
-    if (!_adapter.isAuthorized) {
-      await _adapter.authorize(
-        walletUriBase: _adapter.store.apps[0].walletUriBase,
-      );
+    int retryCount = 0;
+    const int maxRetries = 3;
 
-      await fetchTokenBalance();
+    while (retryCount < maxRetries) {
+      try {
+        if (!_adapter.isAuthorized) {
+          await _adapter.authorize(
+            walletUriBase: _adapter.store.apps[0].walletUriBase,
+          );
+          await fetchTokenBalance();
+        }
+        return;
+      } catch (e) {
+        retryCount++;
+        print('Failed to connect to Phantom ($retryCount/$maxRetries): $e');
+        await Future.delayed(Duration(seconds: 2));
+      }
     }
+
+    // If we've exhausted the retries, throw an exception or handle the failure in another way
+    throw Exception('Failed to connect to Phantom after $maxRetries retries');
   }
 
   Future<void> disconnectFromPhantom() async {
@@ -52,6 +66,9 @@ class WalletProvider extends ChangeNotifier {
   }
 
   Future<void> redeemTokens(int amount) async {
+    // First, make sure the user is connected to the Phantom wallet
+    await connectToPhantom();
+
     if (_adapter.isAuthorized) {
       final Pubkey? wallet =
           Pubkey.tryFromBase64(_adapter.connectedAccount?.address);
